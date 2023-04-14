@@ -1,0 +1,19 @@
+### 获取 Token -- 登录功能实现
+POST http://127.0.0.1:7002/ecommerce-authority-center/authority/token
+Content-Type: application/json
+
+#密码是我手动添加到数据库的，鉴权中心收到的密码是MD5加密过的
+{
+  "username": "lincheng",
+  "password": "lincheng"
+}
+
+
+### 注册用户并返回 Token -- 注册功能实现
+POST http://127.0.0.1:7002/ecommerce-authority-center/authority/register
+Content-Type: application/json
+
+{
+  "username": "lin11",
+  "password": "lin11"
+}
