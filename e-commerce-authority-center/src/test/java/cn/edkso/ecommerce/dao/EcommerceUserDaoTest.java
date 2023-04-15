@@ -21,11 +21,14 @@ public class EcommerceUserDaoTest {
     public void save(){
         EcommerceUser ecommerceUser = new EcommerceUser();
 
-        ecommerceUser.setUsername("lincheng");
-        ecommerceUser.setPassword("lincheng");
+        ecommerceUser.setUsername("lincheng1");
+        ecommerceUser.setPassword("lincheng1");
         ecommerceUser.setExtraInfo("");
         EcommerceUser result = ecommerceUserDao.save(ecommerceUser);
 
         log.debug(JSON.toJSONString(result));
+
+
+
     }
 }
