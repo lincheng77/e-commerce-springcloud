@@ -122,7 +122,7 @@ public class DynamicRouteServiceImpl implements ApplicationEventPublisherAware {
      * @return
      */
     public String updateList(List<RouteDefinition> nacosDefinitions) {
-        log.info("gatewat update route: [{}]", nacosDefinitions);
+        log.info("gateway update route: [{}]", nacosDefinitions);
 
         //先拿到Gateway中存储的路由定义
         List<RouteDefinition> gatewayDefinitions =
