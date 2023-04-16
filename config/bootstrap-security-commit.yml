@@ -1,0 +1,13 @@
+security:
+  spring:
+    cloud:
+      nacos:
+        discovery:
+          # server-addr: xxx
+          server-addr: xxx # Nacos 服务器地址
+          namespace: xxx
+  datasource:
+    url:
+      domain: xxx
+    username: xxx
+    password: xxx
