@@ -1,12 +1,15 @@
 package cn.edkso.ecmmerce.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+
 /**
  * @author dingmengdi
  * @version 1.0
  * @date 2023-04-16 18:44
  * @description 配置类, 读取 Nacos 相关的配置项, 用于配置监听器
  */
+@Configuration
 public class GatewayConfig {
 
     //读取配置的超时时间
