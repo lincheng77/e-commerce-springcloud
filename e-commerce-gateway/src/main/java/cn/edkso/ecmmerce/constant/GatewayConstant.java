@@ -9,4 +9,11 @@ package cn.edkso.ecmmerce.constant;
 public class GatewayConstant {
 
 
+    /** 登录 uri */
+    public static final String LOGIN_URI = "/e-commerce/login";
+
+    /** 注册 uri */
+    public static final String REGISTER_URI = "/e-commerce/register";
+
+
 }
