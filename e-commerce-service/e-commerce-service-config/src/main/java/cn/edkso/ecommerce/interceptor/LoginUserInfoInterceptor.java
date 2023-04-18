@@ -6,6 +6,7 @@ import cn.edkso.ecommerce.util.TokenParseUtil;
 import cn.edkso.ecommerce.vo.LoginUserInfo;
 import jdk.nashorn.internal.parser.Token;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,6 +28,11 @@ public class LoginUserInfoInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
+        // 部分请求（比如swagger）不需要带有身份信息，即白名单
+        if (isWhiteListUrl(request.getRequestURI())){
+            return true;
+        }
+        
         //先尝试从http header 里拿到token
         String token = request.getHeader(CommonConstant.JWT_USER_INFO_KEY);
         LoginUserInfo loginUserInfo = null;
@@ -46,6 +52,15 @@ public class LoginUserInfoInterceptor implements HandlerInterceptor {
         AccessContext.setLoginUserInfo(loginUserInfo);
 
         return true;
+    }
+
+    private boolean isWhiteListUrl(String requestURI) {
+
+        return StringUtils.containsAny(
+                requestURI,
+                "springfox", "swagger", "v2",
+                "webjars", "doc.html"
+        );
     }
 
     @Override
