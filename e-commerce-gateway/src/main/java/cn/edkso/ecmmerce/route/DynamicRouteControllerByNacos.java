@@ -1,5 +1,6 @@
-package cn.edkso.ecmmerce.config;
+package cn.edkso.ecmmerce.route;
 
+import cn.edkso.ecmmerce.config.GatewayConfig;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.nacos.api.NacosFactory;
 import com.alibaba.nacos.api.config.ConfigService;
@@ -32,7 +33,7 @@ public class DynamicRouteControllerByNacos {
     private ConfigService configService;
 
     @Autowired
-    private  DynamicRouteServiceImpl dynamicRouteService;
+    private DynamicRouteServiceImpl dynamicRouteService;
 
     /**
      * Bean 在容器中构造完成之后会执行 init 方法
