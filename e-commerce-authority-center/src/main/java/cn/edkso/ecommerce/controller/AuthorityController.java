@@ -31,10 +31,11 @@ public class AuthorityController {
     @RequestMapping("/token")
     public JwtToken token(@RequestBody UsernameAndPassword usernameAndPassword) throws Exception {
         log.info("request to get token with param: [{}]", JSON.toJSONString(usernameAndPassword));
-
-        return new JwtToken(
-                jwTService.generateToken(usernameAndPassword.getUsername(), usernameAndPassword.getPassword())
-        );
+        JwtToken token = new JwtToken(
+                jwTService.generateToken(
+                        usernameAndPassword.getUsername(),
+                        usernameAndPassword.getPassword()));
+        return token;
     }
 
     @IgnoreResponseAdvice //代码做了统一响应处理，使用该注解忽略

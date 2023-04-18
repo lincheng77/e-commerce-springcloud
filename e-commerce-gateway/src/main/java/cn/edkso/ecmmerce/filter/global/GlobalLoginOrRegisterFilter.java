@@ -134,7 +134,7 @@ public class GlobalLoginOrRegisterFilter implements GlobalFilter, Ordered {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> httpEntity = new HttpEntity<>(JSON.toJSONString(bodyStr), headers);
+        HttpEntity<String> httpEntity = new HttpEntity<>(JSON.toJSONString(usernameAndPassword), headers);
         JwtToken token = restTemplate.postForObject(requestUrl, httpEntity, JwtToken.class);
 
         if (token != null) {

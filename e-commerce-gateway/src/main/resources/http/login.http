@@ -1,0 +1,18 @@
+### 登录
+POST 127.0.0.1:9001/e-commerce/login
+Content-Type: application/json
+
+{
+  "username": "lincheng",
+  "password": "lincheng"
+}
+
+
+### 注册
+POST 127.0.0.1:9001/e-commerce/register
+Content-Type: application/json
+
+{
+  "username": "zhangzhifeng",
+  "password": "zhangzhifeng"
+}
