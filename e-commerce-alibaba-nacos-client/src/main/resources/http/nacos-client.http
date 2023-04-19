@@ -1,3 +1,10 @@
 ### 查询服务实例信息
 GET http://127.0.0.1:8000/ecommerce-nacos-client/nacos-client/service-instance
 Accept: application/json
+
+
+### 查看 Sleuth 跟踪信息
+GET http://127.0.0.1:9001/ecommerce-nacos-client/sleuth/trace-info
+Accept: application/json
+e-commerce-user: eyJhbGciOiJSUzI1NiJ9.eyJlLWNvbW1lcmNlLXVzZXIiOiJ7XCJpZFwiOjEwLFwidXNlcm5hbWVcIjpcImxpbmNoZW5nXCJ9IiwianRpIjoiNjIzYzZhOGUtZjZlNy00NTY1LWE0NmItMDY4ZmVmZjAwYTAxIiwiZXhwIjoxNjgxOTIwMDAwfQ.MP-8QK9xpzhnho-QM-WwXKiPyzfzW8THaiMLwHdeNxEsTAhNVtq-drXZdJnTWw-i-oYC3lxwFguA7cZ77KTTkKTstWmiR4AlpH3LuX8wrBkDT5q4RXufzhRYn1lWJ82o3ZQRMQETqNwPDkDz2GnuuvKNWDYInUsB4WR29Q8RSdbUPGABE7-mEHJmVLAqPWW3MxNuP_blpUUxiqPZn8EfdS06j9FVmh8Jmm9mS6nZU9A0lgqPGWExOn-9F3TR5Pry0wh8AfBEJC-kbqHny_qnUBJZ1fLvL_otY9saJZnMaxzUrjCtbwIKosIF3G_btq217QjQ2D_nQMIDJViG246b_A
+token: edkso
