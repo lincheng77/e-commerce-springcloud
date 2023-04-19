@@ -3,6 +3,7 @@ package cn.edkso.ecommerce.conf;
 import cn.edkso.ecommerce.interceptor.LoginUserInfoInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 /**
@@ -22,4 +23,24 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
                 .addPathPatterns("/**")
                 .order(0);
     }
+
+    /**
+     * 让MVC 加载Swagger 的静态资源
+     * @param registry
+     */
+    @Override
+    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
+
+        registry.addResourceHandler("/**").
+                addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("doc.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+
+        super.addResourceHandlers(registry);
+    }
+
 }
