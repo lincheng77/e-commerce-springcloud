@@ -2,7 +2,9 @@
 
 ## 技术栈
 
+* 注册中心：Nacos、
 * 网关：Spring Cloud Gateway
+* 消息中间件: Kafka
 
 ## ResponseBodyAdvice接口 实现统一响应处理
 
@@ -63,3 +65,123 @@
 * 在代码中注入RouteLocatorBean，并手工编写配置路由定义
 * 在application.yml、boostrap.yml等配置文件中配置spring.cloud.gateway
 * 通过配置中心（Nacos实现动态路由配置）
+
+## Kafka的安装与运行
+
+### 下载地址
+
+下载地址，对于各种操作系统来说，Kafka 的下载地址就只有一个 https://kafka.apache.org/quickstar
+
+### Kafka的相关命令
+
+```shell
+# Kafka 依赖于 ZK，先启动 ZK
+bin/zookeeper-server-start.sh -daemon config/zookeeper.properties
+
+# 启动 Kafka 服务器
+bin/kafka-server-start.sh config/server.properties
+
+# 创建 Topic
+create topic: bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
+
+# 查看 Topic 列表
+topic list: bin/kafka-topics.sh --list --zookeeper localhost:2181
+
+# 启动 Producer
+producer: bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
+
+# 启动 Consumer
+consumer: bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning
+
+# 查看单个 Topic 信息
+topic info: bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic test
+
+```
+
+> 说明：以上命令适用于 Linux和 Mac OS，对于 Windows 系统来说，需要将 .sh换成 .bat，且命令的目录位于 bin/windows 下面。
+
+## Zipkin 安装与配置
+
+### 下载地址
+
+下载: https://zipkin.io/pages/quickstart.html
+
+### Zipkin的相关操作
+
+```shell
+# 简单的看看, 默认端口号是 9411
+java -jar zipkin-server-2.19.3-exec.jar
+nohup java -jar zipkin-server-2.19.3-exec.jar &
+
+# 访问地址
+http://127.0.0.1:9411/
+
+# 修改端口, 因为这就是一个 SpringBoot 应用
+java -jar zipkin-server-2.19.3-exec.jar --server.port=8888
+
+# 跟踪数据保存到 MySQL 中（这个是吧sql下载下来，病区创建数据库导入）
+wget https://github.com/openzipkin/zipkin/blob/master/zipkin-storage/mysql-v1/src/main/resources/mysql.sql
+#启动命令
+java -jar zipkin-server-2.21.7-exec.jar --STORAGE_TYPE=mysql --MYSQL_HOST=127.0.0.1 --MYSQL_TCP_PORT=3306 --MYSQL_USER=root --MYSQL_PASS=root --MYSQL_DB=imooc_zipkin
+
+# zipkin 服务端可以从消息中间件 (RabbitMQ, Kafka) 获取跟踪数据, 只需要指定好地址就可以, 默认是 HTTP 接口, 性能较差
+# 默认情况下，Zipkin Server 都会将跟踪信息存储在内存中，每次重启 Zipkin Server 都会使得之前收集的跟踪信息丢失，而且当有大量跟踪信息时我们的内存存储也会成为瓶颈
+# 所有正常情况下我们都需要将跟踪信息对接到外部存储组件（比如 MySQL、Elasticsearch）中去
+java -DKAFKA_BOOTSTRAP_SERVERS=127.0.0.1:9092 -jar zipkin-server-2.21.7-exec.jar --STORAGE_TYPE=mysql --MYSQL_HOST=127.0.0.1 --MYSQL_TCP_PORT=3306 --MYSQL_USER=root --MYSQL_PASS=r
+```
+
+## 踩坑
+
+### SpringBoot项目连接Kafka找不到主机，并且还自动把请求的域名或者ip转成了部署kafka主机的主机名
+
+#### 问题日志
+
+```bash
+[AdminClient clientId=adminclient-1] Error connecting to node lincheng77:9092
+```
+
+#### 我的配置
+
+```yaml
+  kafka:
+    bootstrap-servers: xxx.xxx.xxx:9092
+    producer:
+      retries: 3
+    consumer:
+      auto-offset-reset: latest
+  zipkin:
+    sender:
+      type: kafka # 默认是 web
+    base-url: ${security.spring.zipkin.base-url}
+  main:
+    allow-bean-definition-overriding: true  # 因为将来会引入很多依赖, 难免有重名的 bean
+```
+
+#### 解决方案
+
+配置下面三个参数
+
+```properties
+# The id of the broker. This must be set to a unique integer for each broker.
+#broker是全局唯一编号，不能重复
+broker.id=0
+
+############################# Socket Server Settings #############################
+
+# The address the socket server listens on. If not configured, the host name will be equal to the value of
+# java.net.InetAddress.getCanonicalHostName(), with PLAINTEXT listener name, and port 9092.
+#   FORMAT:
+#     listeners = listener_name://host_name:port
+#   EXAMPLE:
+#     listeners = PLAINTEXT://your.host.name:9092
+#监听的端口
+listeners=PLAINTEXT://:9092
+# Listener name, hostname and port the broker will advertise to clients.
+# If not set, it uses the value for "listeners".
+#客户端连接的ip地址，必须要写成服务器的ip地址！
+advertised.listeners=PLAINTEXT://nas.edkso.cn:9092
+```
+
+#### 思考总结
+
+我对于kafka不太了解，kafka需要用到ZooKeeper，就说明kafka是可以部署集群的，并通过ZooKeeper选举，我只部署了一台，当我连上kafka之后，因为我不是在本地机器，又由于我没有去配置相关参数，kafka会默认告诉我找所部属的那台机器（给出的访问地址就是机器名），那我我在远程直接通过机器名肯定连不上！
