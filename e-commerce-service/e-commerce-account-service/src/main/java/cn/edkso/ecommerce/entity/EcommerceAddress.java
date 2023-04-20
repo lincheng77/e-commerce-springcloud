@@ -1,5 +1,6 @@
 package cn.edkso.ecommerce.entity;
 
+import cn.edkso.ecommerce.AddressInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,11 +27,15 @@ import java.util.Date;
 @Table(name = "t_ecommerce_address")
 public class EcommerceAddress {
 
-    // 用户id
+    // 自增逐渐
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false)
     private Long id;
+
+    // 用户id
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
     // 用户名
     @Column(name = "username", nullable = false)
@@ -50,7 +55,7 @@ public class EcommerceAddress {
 
     // 详细地址
     @Column(name = "address_detail", nullable = false)
-    private String address_detail;
+    private String addressDetail;
 
     // 创建时间
     @CreatedDate
@@ -60,6 +65,40 @@ public class EcommerceAddress {
     // 更新时间
     @LastModifiedDate
     @Column(name = "update_time", nullable = false)
-    private Date update_time;
+    private Date updateTime;
 
+
+    /**
+     * 根据 userId + AddressItem 得到 EcommerceAddress
+     * @param userId
+     * @param item
+     * @return
+     */
+    public static EcommerceAddress ofUserIdAndAddressItem(Long userId, AddressInfo.AddressItem item){
+        EcommerceAddress ecommerceAddress = new EcommerceAddress();
+
+        ecommerceAddress.setUserId(userId);
+        ecommerceAddress.setUsername(item.getUsername());
+        ecommerceAddress.setPhone(item.getPhone());
+        ecommerceAddress.setProvince(item.getProvince());
+        ecommerceAddress.setCity(item.getCity());
+        ecommerceAddress.setAddressDetail(item.getAddressDetail());
+
+        return ecommerceAddress;
+    }
+
+    public AddressInfo.AddressItem toAddressItem(){
+        AddressInfo.AddressItem addressItem = new AddressInfo.AddressItem();
+
+        addressItem.setId(this.id);
+        addressItem.setUsername(this.username);
+        addressItem.setPhone(this.phone);
+        addressItem.setProvince(this.province);
+        addressItem.setCity(this.city);
+        addressItem.setAddressDetail(this.addressDetail);
+        addressItem.setCreateTime(this.createTime);
+        addressItem.setUpdateTime(this.updateTime);
+
+        return addressItem;
+    }
 }
