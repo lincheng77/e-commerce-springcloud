@@ -1,11 +1,10 @@
-package cn.edkso.ecommerce;
+package cn.edkso.ecommerce.account;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.Date;
 import java.util.List;

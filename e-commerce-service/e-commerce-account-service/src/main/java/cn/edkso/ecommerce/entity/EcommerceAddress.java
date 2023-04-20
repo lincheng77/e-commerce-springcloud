@@ -1,10 +1,9 @@
 package cn.edkso.ecommerce.entity;
 
-import cn.edkso.ecommerce.AddressInfo;
+import cn.edkso.ecommerce.account.AddressInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

@@ -1,4 +1,4 @@
-package cn.edkso.ecommerce;
+package cn.edkso.ecommerce.account;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
