@@ -29,7 +29,7 @@ public class EcommerceAddress {
     // 自增逐渐
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
 
     // 用户id
