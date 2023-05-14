@@ -1,5 +1,6 @@
 package cn.edkso.ecmmerce.filter.part.factory;
 
+import cn.edkso.ecmmerce.filter.part.HeaderTokenGatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.stereotype.Component;

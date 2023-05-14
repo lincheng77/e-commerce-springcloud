@@ -1,4 +1,4 @@
-package cn.edkso.ecmmerce.filter.part.factory;
+package cn.edkso.ecmmerce.filter.part;
 
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
