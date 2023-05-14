@@ -1,5 +1,5 @@
 ### 登录
-POST 127.0.0.1:9001/e-commerce/login
+POST 127.0.0.1:9001/edkso/e-commerce/login
 Content-Type: application/json
 
 {
@@ -9,7 +9,7 @@ Content-Type: application/json
 
 
 ### 注册
-POST 127.0.0.1:9001/e-commerce/register
+POST 127.0.0.1:9001/edkso/e-commerce/register
 Content-Type: application/json
 
 {

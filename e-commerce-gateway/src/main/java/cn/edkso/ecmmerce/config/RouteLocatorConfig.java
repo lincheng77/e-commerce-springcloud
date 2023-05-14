@@ -36,8 +36,8 @@ public class RouteLocatorConfig {
             @Override
             public Route.AsyncBuilder apply(PredicateSpec predicateSpec) {
                 BooleanSpec path = predicateSpec.path(
-                        "/e-commerce/login",
-                        "/e-commerce/register");
+                        "/edkso/e-commerce/login",
+                        "/edkso/e-commerce/register");
                 Route.AsyncBuilder routeBuilder = path.uri("http://localhost:9001/");
                 return routeBuilder;
             }

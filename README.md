@@ -122,12 +122,12 @@ java -jar zipkin-server-2.19.3-exec.jar --server.port=8888
 # 跟踪数据保存到 MySQL 中（这个是吧sql下载下来，病区创建数据库导入）
 wget https://github.com/openzipkin/zipkin/blob/master/zipkin-storage/mysql-v1/src/main/resources/mysql.sql
 #启动命令
-java -jar zipkin-server-2.21.7-exec.jar --STORAGE_TYPE=mysql --MYSQL_HOST=127.0.0.1 --MYSQL_TCP_PORT=3306 --MYSQL_USER=root --MYSQL_PASS=root --MYSQL_DB=imooc_zipkin
+java -jar zipkin.jar --STORAGE_TYPE=mysql --MYSQL_HOST=127.0.0.1 --MYSQL_TCP_PORT=3306 --MYSQL_USER=zipkin --MYSQL_PASS=zipkin --MYSQL_DB=zipkin
 
 # zipkin 服务端可以从消息中间件 (RabbitMQ, Kafka) 获取跟踪数据, 只需要指定好地址就可以, 默认是 HTTP 接口, 性能较差
 # 默认情况下，Zipkin Server 都会将跟踪信息存储在内存中，每次重启 Zipkin Server 都会使得之前收集的跟踪信息丢失，而且当有大量跟踪信息时我们的内存存储也会成为瓶颈
 # 所有正常情况下我们都需要将跟踪信息对接到外部存储组件（比如 MySQL、Elasticsearch）中去
-java -DKAFKA_BOOTSTRAP_SERVERS=127.0.0.1:9092 -jar zipkin-server-2.21.7-exec.jar --STORAGE_TYPE=mysql --MYSQL_HOST=127.0.0.1 --MYSQL_TCP_PORT=3306 --MYSQL_USER=root --MYSQL_PASS=r
+java -DKAFKA_BOOTSTRAP_SERVERS=127.0.0.1:9092 -jar zipkin.jar --STORAGE_TYPE=mysql --MYSQL_HOST=127.0.0.1 --MYSQL_USER=zipkin --MYSQL_PASS=zipkin --MYSQL_DB=zipkin
 ```
 
 ## 踩坑
